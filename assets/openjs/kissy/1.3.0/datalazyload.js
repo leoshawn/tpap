@@ -41,10 +41,6 @@ KISSY.add(function(S, DataLazyload) {
             }));
         };
 
-        SafedataLazyload.prototype.getElements = function() {
-            this.inner.getElements();
-        };
-
         SafedataLazyload.prototype.refresh = function() {
             this.inner.refresh();
         };
@@ -69,8 +65,7 @@ KISSY.add(function(S, DataLazyload) {
 
         frameGroup.markCtor(SafedataLazyload);
         frameGroup.grantMethod(SafedataLazyload, "addCallback");
-        frameGroup.grantMethod(SafedataLazyload, "removeCallback");
-        frameGroup.grantMethod(SafedataLazyload, "getElements");
+        frameGroup.grantMethod(SafedataLazyload, "removeCallback");        
         frameGroup.grantMethod(SafedataLazyload, "refresh");
         frameGroup.grantMethod(SafedataLazyload, "pause");
         frameGroup.grantMethod(SafedataLazyload, "resume");
@@ -92,8 +87,7 @@ KISSY.add(function(S, DataLazyload) {
                     var args = S.makeArray(arguments);
                     var cfg = cajaAFTB.untame(args[0], context.mod);
                     cfg.execScript = false; //textarea 禁止脚本
-                    cfg.container = (cfg.container == null ? 'body': cfg.container);
-                    
+                    cfg.container = cfg.container ? S.get(cfg.container, context.mod) : context.mod; 
                     cfg.onStart = function(obj) {
                       
                         if (obj.type == 'img') {
