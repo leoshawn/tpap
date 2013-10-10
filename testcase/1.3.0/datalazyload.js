@@ -1,30 +1,45 @@
 var S = KISSY;
-
+var $ = KISSY.all;
 var DataLazyload = KISSY.DataLazyload;
 
 var lay = new DataLazyload({
-	// container: '#test',
+	container: '.test',
 	diff: 150,
-	placeholder: 'http://mozilla.com.cn/static/images/logo.png'
+	placeholder: 'http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png'
 
 });
 
-lay.addCallback("#test1", function() {
+var test1 = new DataLazyload({
+	container: '.test1',
+	diff: 150,
+	placeholder: 'http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png'
+
+});
+
+test1.addCallback(".test1", function() {	
 	S.log("u see me test1,add in selector");
 });
-lay.addCallback("#test2", function() {
-	S.log("u see me test2,add in selector");
 
+var d = new DataLazyload({
+	container: '#container'	
+});
+$('#pause').on('click', function() {
+	d.pause();
 });
 
-lay.addCallback(".test3", function() {
-	S.log("u see me test3,add in selector");
-
+$('#resume').on('click', function() {
+	d.resume();
 });
 
-new DataLazyload({
-	container: '.box',
+
+d.on("destroy", function() {
+	KISSY.all('#gap').hide();
+});
+
+var test3 = new DataLazyload({
+	container: '.test3',
 	diff: 150,
-	placeholder: 'http://mozilla.com.cn/static/images/logo.png'   
-});
+	placeholder: 'http://img01.taobaocdn.com/tps/i1/T1Kz0pXzJdXXXIdnjb-146-58.png'
+})
+
 
