@@ -58,6 +58,7 @@ KISSY.add(function(S, DataLazyload) {
         };
 
         SafedataLazyload.prototype.loadCustomLazyData = function(containers, type) {
+            containers = DOM.get(containers, this.mod);
             this.inner.loadCustomLazyData(containers, type);
         };
 
