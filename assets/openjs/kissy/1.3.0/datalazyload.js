@@ -62,9 +62,16 @@ KISSY.add(function(S, DataLazyload) {
             this.inner.loadCustomLazyData(containers, type);
         };
 
+        SafedataLazyload.prototype.on = function(type, fnc) {
+            this.inner.on(type, frameGroup.markFunction(function() {
+                fnc.call();
+            }));
+        };
+
 
 
         frameGroup.markCtor(SafedataLazyload);
+        frameGroup.grantMethod(SafedataLazyload, "on");
         frameGroup.grantMethod(SafedataLazyload, "addCallback");
         frameGroup.grantMethod(SafedataLazyload, "removeCallback");        
         frameGroup.grantMethod(SafedataLazyload, "refresh");
