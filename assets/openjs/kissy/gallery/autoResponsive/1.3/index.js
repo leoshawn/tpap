@@ -1,7 +1,7 @@
 /**
  * @autoResponsive 组件安全适配器
  */
-KISSY.add(function(S, AutoResponsive) {
+KISSY.add(function(S, AutoResponsive,Hash,Drag,Loader,Sort) {
     var DOM = S.DOM,
         Event = S.Event;
 
@@ -25,10 +25,10 @@ KISSY.add(function(S, AutoResponsive) {
 
         function SafeAutoResponsive(config) {
             this.inner = new AutoResponsive(config);
+            console.log(this.inner);
         }
 
-
-        SafeAutoResponsive.prototype = {
+        S.augment(SafeAutoResponsive, {
             /**
              * 初始化组件
              * @return  排序实例
@@ -37,37 +37,16 @@ KISSY.add(function(S, AutoResponsive) {
                 this.inner.init();
             },
             /**
-             * 初始插件
-             */
-            initPlugins: function () {
-                this.inner.initPlugins();
-            },
-            /**
              * 渲染排序结果
              */
             render: function () {
                 this.inner.render();
             },
             /**
-             * 绑定浏览器resize事件
-             */
-            _bind: function (handle) {
-                this.inner._bind(handle);
-            },
-            /**
-             * 添加事件节流阀
-             */
-            _bindEvent: function () {
-                this.inner._bindEvent();
-            },
-            /**
              * 重新布局调整
              */
             adjust: function (isRecountUnitWH) {
                 this.inner.adjust(isRecountUnitWH);
-            },
-            isAdjusting: function () {
-                this.inner.isAdjusting();
             },
             /**
              * 调整边距
@@ -103,11 +82,220 @@ KISSY.add(function(S, AutoResponsive) {
              */
             prepend: function (nodes) {
                 this.inner.prepend(nodes);
+            },
+            on:function(type,fn){
+                this.inner.on(type, frameGroup.markFunction(function(ev){
+                    if(ev.autoResponsive.items){
+                        
+                    }
+                    fn.call(this,ev);
+                }));
             }
-        };
+        });
 
         frameGroup.markCtor(SafeAutoResponsive);
-        frameGroup.grantMethod(SafeAutoResponsive, 'on');
+
+        S.each(['init', 'render', 'adjust', 'margin', 'direction', 'changeCfg', 'append', 'prepend', 'on'], function(fn) {
+            frameGroup.grantMethod(SafeAutoResponsive, fn);
+        });
+
+        //Hash Adapter
+
+        function SafeAutoResponsiveHash(config) {
+            this.inner = new AutoResponsive.hash();
+        }
+
+        S.augment(SafeAutoResponsiveHash, {
+           
+            hasHash: function () {
+                this.inner.hasHash();
+            },
+            parse: function () {
+                this.inner.parse();
+            },
+            /**
+             * 解析hash
+             * priority,filter
+             */
+            getParam: function () {
+                this.inner.getParam();
+            },
+            getPriority: function (str) {
+                this.inner.getPriority(str);
+            },
+            getFilter: function (str) {
+                this.inner.getFilter(str);
+            }
+        
+        });
+
+        frameGroup.markCtor(SafeAutoResponsiveHash);
+
+        S.each(['hasHash', 'parse', 'getParam', 'getPriority', 'getFilter'], function(fn) {
+            frameGroup.grantMethod(SafeAutoResponsiveHash, fn);
+        });
+
+        //Drag Adapter
+
+        function SafeAutoResponsiveDrag(config) {
+            this.inner = new AutoResponsive.Drag();
+        }
+
+        S.augment(SafeAutoResponsiveDrag, {
+            /**
+             * 动态改变配置
+             */
+            changCfg:function(cfg){
+                this.inner.changeCfg(cfg);
+            },
+            stop:function(){
+                this.inner.stop();
+            },
+            restore:function(){
+                this.inner.restore();
+            } 
+        
+        });
+
+        frameGroup.markCtor(SafeAutoResponsiveDrag);
+
+        S.each(['changCfg', 'stop', 'restore'], function(fn) {
+            frameGroup.grantMethod(SafeAutoResponsiveDrag, fn);
+        });
+
+
+        //Loader Adapter
+
+        function SafeAutoResponsiveLoader(config) {
+            this.inner = new AutoResponsive.loader();
+        }
+
+        S.augment(SafeAutoResponsiveLoader, {
+
+            /**
+             * 暴露成外部接口，主要目的是让使用者可以动态改变loader某些配置（如mod），而不需要重新实例化
+             * 修改的配置会立即生效
+             * @param cfg
+             */
+            changeCfg: function(cfg){
+                this.inner.changeCfg(cfg);
+            },
+            /**
+             * 使用用户自定义load函数对数据进行loading
+             * @public 在手动模式时可以供外部调用
+             */
+            load: function () {
+                this.inner.load();
+            },
+            /**
+             * 启动loader数据load功能
+             * @public
+             */
+            start: function () {
+                this.inner.start();
+            },
+            /**
+             * 停止loader数据load功能
+             * @public
+             */
+            stop: function () {
+                this.inner.stop();
+            },
+            /**
+             * 暂停loader数据load功能
+             * @public
+             */
+            pause: function () {
+                this.inner.pause();
+            },
+            /**
+             * 恢复（重新唤醒）loader数据load功能
+             * @public
+             */
+            resume: function () {
+                this.inner.resume();
+            },
+            /**
+             * 停止loader所有工作，销毁loader对象
+             * @deprecated 该功能暂时未完善
+             * @public
+             */
+            destroy: function () {
+                this.inner.destroy();
+            }
+        });
+
+        frameGroup.markCtor(SafeAutoResponsiveLoader);
+
+        S.each(['changeCfg', 'load', 'start', 'stop', 'pause', 'resume', 'destroy'], function(fn) {
+            frameGroup.grantMethod(SafeAutoResponsiveLoader, fn);
+        });
+
+
+        //Sort Adapter
+
+        function SafeAutoResponsiveSort(config) {
+            this.inner = new AutoResponsive.sort();
+        }
+
+        S.augment(SafeAutoResponsiveSort, {
+            /**
+             * 暴露成外部接口
+             * 修改的配置会立即生效
+             * @param cfg
+             */
+            changeCfg: function(cfg){
+                this.inner.changeCfg(cfg);
+            },
+            /**
+             * 随机排序
+             */
+            random:function(cfg){
+                this.inner.random(cfg);
+            },
+            /**
+             * 优先排序
+             */
+            priority:function(cfg){
+                this.inner.priority(cfg);
+            },
+            /**
+             * 倒序
+             */
+            reverse:function(){
+                this.inner.reverse();
+            },
+            /**
+             * 过滤排序
+             */
+            filter:function(cfg){
+                this.inner.filter(cfg);
+            },
+            /**
+             * 用户自定义算法
+             */
+            custom:function(action){
+                this.inner.custom(action);
+            },
+            /**
+             * 清除规则
+             */
+            clear:function(){
+                this.inner.clear();
+            },
+            /**
+             * 撤销操作
+             */
+            restore:function(){
+                this.inner.restore();
+            }
+        });
+
+        frameGroup.markCtor(SafeAutoResponsiveSort);
+
+        S.each(['changeCfg', 'random', 'priority', 'reverse', 'filter', 'custom', 'clear', 'restore'], function(fn) {
+            frameGroup.grantMethod(SafeAutoResponsiveSort, fn);
+        });
 
         /**
          * @param context 上下文
@@ -116,20 +304,50 @@ KISSY.add(function(S, AutoResponsive) {
          * @return {Object} 实际的组件对象
          */
         return function(context) {
-
             //最终需要返回给
             return {
-                AutoResponsive: frameGroup.markFunction(function() {
-                    var args = S.makeArray(arguments);
-                    return new SafeAutoResponsive(cajaAFTB.untame(arguments[1]));
-                }),
+                AutoResponsive:{
+                    Base:frameGroup.markFunction(function() {
+                        var config = S.makeArray(arguments)[0];    
+                        config = cajaAFTB.untame(config);
+                        config.container = S.get(config.container, context.mod);
+                        return new SafeAutoResponsive(config);
+                    }),
+                    Plugin:{
+                        hash:frameGroup.markFunction(function(){
+                            var config = S.makeArray(arguments)[0];    
+                            config = cajaAFTB.untame(config);
+                            return new SafeAutoResponsiveHash();
+                        }),
+                        drag:frameGroup.markFunction(function(){
+                            var config = S.makeArray(arguments)[0];    
+                            config = cajaAFTB.untame(config);
+                            return new SafeAutoResponsiveDrag();
+                        }),
+                        loader:frameGroup.markFunction(function(){
+                            var config = S.makeArray(arguments)[0];    
+                            config = cajaAFTB.untame(config);
+                            return new SafeAutoResponsiveLoader();
+                        }),
+                        sort:frameGroup.markFunction(function(){
+                            var config = S.makeArray(arguments)[0];    
+                            config = cajaAFTB.untame(config);
+                            return new SafeAutoResponsiveSort();
+                        })
+                    }
+                },
                 kissy: true
             }
         }
-
     }
     return init;
 }, {
-    requires: ['gallery/autoResponsive/1.3/index']
+    requires: [
+        'gallery/autoResponsive/1.3/base',
+        'gallery/autoResponsive/1.3/plugin/hash', 
+        'gallery/autoResponsive/1.3/plugin/drag',
+        'gallery/autoResponsive/1.3/plugin/loader', 
+        'gallery/autoResponsive/1.3/plugin/sort'
+    ]
 });
 
