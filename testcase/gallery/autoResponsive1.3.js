@@ -3,23 +3,23 @@ var S = KISSY, E = S.Event,D = S.DOM,
 
 var T = KISSY.AutoResponsive;
 
+console.log(T, T.Sort, T.Plugin, T.Plugin.Sort)
 var _random = false;
-var prioritySort = function (){
-    return new T.Sort();
-}
-var priority = new T({
+var prioritySort = new T.Plugin.Sort();
+console.log('aa', T.Plugin, T.Plugin.Sort, prioritySort)
+
+var priority = new T.Base({
     container:'.J_container_priority',
     selector:'div',
     unitMargin:{
         x :10,
         y:10
     },
-    plugins:[prioritySort()],
+    plugins:[prioritySort],
     gridWidth:10,
     autoInit:false,
     closeAnim:false
 });
-
 priority.init();
 
 
@@ -64,6 +64,7 @@ E.on('.J_button_priority','click',function(e){
     }
     priority.adjust();
 });
+
 setTimeout(function(){
     prioritySort.random();
 
@@ -75,7 +76,7 @@ setTimeout(function(){
         clearInterval(Timer);
     },1500);
 },800)
-
+return ;
 var filterSort = new T.Sort();
 
 var filter = new T({

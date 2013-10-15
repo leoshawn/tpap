@@ -1,7 +1,7 @@
 /**
  * @autoResponsive 组件安全适配器
  */
-KISSY.add(function(S, AutoResponsive,Hash,Drag,Loader,Sort) {
+KISSY.add(function(S, Base,Hash,Drag,Loader,Sort) {
     var DOM = S.DOM,
         Event = S.Event;
 
@@ -24,8 +24,7 @@ KISSY.add(function(S, AutoResponsive,Hash,Drag,Loader,Sort) {
         //AutoResponsive Adapter
 
         function SafeAutoResponsive(config) {
-            this.inner = new AutoResponsive(config);
-            console.log(this.inner);
+            this.inner = new Base(config);
         }
 
         S.augment(SafeAutoResponsive, {
@@ -85,9 +84,6 @@ KISSY.add(function(S, AutoResponsive,Hash,Drag,Loader,Sort) {
             },
             on:function(type,fn){
                 this.inner.on(type, frameGroup.markFunction(function(ev){
-                    if(ev.autoResponsive.items){
-                        
-                    }
                     fn.call(this,ev);
                 }));
             }
@@ -99,10 +95,16 @@ KISSY.add(function(S, AutoResponsive,Hash,Drag,Loader,Sort) {
             frameGroup.grantMethod(SafeAutoResponsive, fn);
         });
 
+        /**
+         *
+         * plugin Adapter
+         *
+         */
+
         //Hash Adapter
 
         function SafeAutoResponsiveHash(config) {
-            this.inner = new AutoResponsive.hash();
+            this.inner = new Hash(config);
         }
 
         S.augment(SafeAutoResponsiveHash, {
@@ -131,14 +133,14 @@ KISSY.add(function(S, AutoResponsive,Hash,Drag,Loader,Sort) {
 
         frameGroup.markCtor(SafeAutoResponsiveHash);
 
-        S.each(['hasHash', 'parse', 'getParam', 'getPriority', 'getFilter'], function(fn) {
+        S.each(['hasHash', 'parse', 'getParam', 'getPriority', 'getFilter', 'init'], function(fn) {
             frameGroup.grantMethod(SafeAutoResponsiveHash, fn);
         });
 
         //Drag Adapter
 
         function SafeAutoResponsiveDrag(config) {
-            this.inner = new AutoResponsive.Drag();
+            this.inner = new Drag(config);
         }
 
         S.augment(SafeAutoResponsiveDrag, {
@@ -159,7 +161,7 @@ KISSY.add(function(S, AutoResponsive,Hash,Drag,Loader,Sort) {
 
         frameGroup.markCtor(SafeAutoResponsiveDrag);
 
-        S.each(['changCfg', 'stop', 'restore'], function(fn) {
+        S.each(['changCfg', 'stop', 'restore', 'init'], function(fn) {
             frameGroup.grantMethod(SafeAutoResponsiveDrag, fn);
         });
 
@@ -167,7 +169,7 @@ KISSY.add(function(S, AutoResponsive,Hash,Drag,Loader,Sort) {
         //Loader Adapter
 
         function SafeAutoResponsiveLoader(config) {
-            this.inner = new AutoResponsive.loader();
+            this.inner = new Loader(config);
         }
 
         S.augment(SafeAutoResponsiveLoader, {
@@ -227,7 +229,7 @@ KISSY.add(function(S, AutoResponsive,Hash,Drag,Loader,Sort) {
 
         frameGroup.markCtor(SafeAutoResponsiveLoader);
 
-        S.each(['changeCfg', 'load', 'start', 'stop', 'pause', 'resume', 'destroy'], function(fn) {
+        S.each(['changeCfg', 'load', 'start', 'stop', 'pause', 'resume', 'destroy', 'init'], function(fn) {
             frameGroup.grantMethod(SafeAutoResponsiveLoader, fn);
         });
 
@@ -235,10 +237,14 @@ KISSY.add(function(S, AutoResponsive,Hash,Drag,Loader,Sort) {
         //Sort Adapter
 
         function SafeAutoResponsiveSort(config) {
-            this.inner = new AutoResponsive.sort();
+            this.inner = new Sort(config);
         }
 
         S.augment(SafeAutoResponsiveSort, {
+
+            init:function(){
+                this.inner.init();
+            },
             /**
              * 暴露成外部接口
              * 修改的配置会立即生效
@@ -293,7 +299,7 @@ KISSY.add(function(S, AutoResponsive,Hash,Drag,Loader,Sort) {
 
         frameGroup.markCtor(SafeAutoResponsiveSort);
 
-        S.each(['changeCfg', 'random', 'priority', 'reverse', 'filter', 'custom', 'clear', 'restore'], function(fn) {
+        S.each(['changeCfg', 'random', 'priority', 'reverse', 'filter', 'custom', 'clear', 'restore', 'init'], function(fn) {
             frameGroup.grantMethod(SafeAutoResponsiveSort, fn);
         });
 
@@ -313,26 +319,28 @@ KISSY.add(function(S, AutoResponsive,Hash,Drag,Loader,Sort) {
                         config.container = S.get(config.container, context.mod);
                         return new SafeAutoResponsive(config);
                     }),
-                    Plugin:{
-                        hash:frameGroup.markFunction(function(){
+                    Plugin: { 
+                        Hash:frameGroup.markFunction(function(){
                             var config = S.makeArray(arguments)[0];    
                             config = cajaAFTB.untame(config);
-                            return new SafeAutoResponsiveHash();
+                            return new SafeAutoResponsiveHash(config);
                         }),
-                        drag:frameGroup.markFunction(function(){
+                        Drag:frameGroup.markFunction(function(){
                             var config = S.makeArray(arguments)[0];    
                             config = cajaAFTB.untame(config);
-                            return new SafeAutoResponsiveDrag();
+                            return new SafeAutoResponsiveDrag(config);
                         }),
-                        loader:frameGroup.markFunction(function(){
+                        Loader:frameGroup.markFunction(function(){
                             var config = S.makeArray(arguments)[0];    
                             config = cajaAFTB.untame(config);
-                            return new SafeAutoResponsiveLoader();
+                            return new SafeAutoResponsiveLoader(config);
                         }),
-                        sort:frameGroup.markFunction(function(){
+                        Sort: frameGroup.markFunction(function(){
                             var config = S.makeArray(arguments)[0];    
                             config = cajaAFTB.untame(config);
-                            return new SafeAutoResponsiveSort();
+                            console.log('aa' , SafeAutoResponsiveSort);
+                            return new SafeAutoResponsiveSort(config);
+
                         })
                     }
                 },
