@@ -252,7 +252,6 @@ KISSY.add(function(S,Base,Hash,Drag,Loader,Sort) {
         S.augment(SafeAutoResponsiveSort, {
 
             init:function(owner){
-                alert(1)
                 this.inner.init(owner);
             },
             /**
@@ -325,7 +324,6 @@ KISSY.add(function(S,Base,Hash,Drag,Loader,Sort) {
                 AutoResponsive:{
                     Base:frameGroup.markFunction(function() {
                         var config = S.makeArray(arguments)[0];    
-                        config = cajaAFTB.untame(config);
                         config.container = S.get(config.container, context.mod);
                         return new SafeAutoResponsive(config);
                     }),
@@ -348,7 +346,6 @@ KISSY.add(function(S,Base,Hash,Drag,Loader,Sort) {
                         Sort: frameGroup.markFunction(function(){
                             var config = S.makeArray(arguments)[0];    
                             config = cajaAFTB.untame(config);
-                            console.log('aa' , SafeAutoResponsiveSort);
                             return new SafeAutoResponsiveSort(config);
 
                         })

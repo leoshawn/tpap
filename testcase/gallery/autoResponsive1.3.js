@@ -3,10 +3,8 @@ var S = KISSY, E = S.Event,D = S.DOM,
 
 var T = KISSY.AutoResponsive;
 
-console.log(T, T.Sort, T.Plugin, T.Plugin.Sort)
 var _random = false;
 var prioritySort = new T.Plugin.Sort();
-console.log('aa', T.Plugin, T.Plugin.Sort, prioritySort)
 
 var priority = new T.Base({
     container:'.J_container_priority',
@@ -76,10 +74,10 @@ setTimeout(function(){
         clearInterval(Timer);
     },1500);
 },800)
-return ;
-var filterSort = new T.Sort();
 
-var filter = new T({
+var filterSort = new T.Plugin.Sort();
+
+var filter = new T.Base({
     container:'.J_container_filter',
     selector:'div',
     unitMargin:{
@@ -140,7 +138,7 @@ E.on('.J_button_filter','click',function(e){
     }
     filter.adjust();
 });
-var unitMargin = new T({
+var unitMargin = new T.Base({
     container:'.J_container_margin',
     selector:'div',
     closeAnim:closeAnimate
@@ -173,7 +171,7 @@ E.on('.J_button_margin','click',function(e){
 
     }
 });
-var direction = new T({
+var direction = new T.Base({
     container:'.J_container_direction',
     selector:'div',
     unitMargin:{
@@ -187,18 +185,11 @@ var direction = new T({
 E.on('.J_button_direction','click',function(e){
 
     var _target = e.target;
-
+    console.log(_target)
     if(D.hasClass(_target,'left')){
-        S.each(D.query('div','.J_container_direction'),function(i){
-            D.removeAttr(i,'style');
-        })
         direction.direction('left');
 
     }else if(D.hasClass(_target,'right')){
-
-        S.each(D.query('div','.J_container_direction'),function(i){
-            D.removeAttr(i,'style');
-        });
         direction.direction('right');
     }
 });
@@ -206,7 +197,7 @@ E.on('.J_button_direction','click',function(e){
  * 先初始化插件
  */
 
-var drag = new T.Drag({
+var drag = new T.Plugin.Drag({
     closeConstrain :false,       //是否关闭边界限制
     selector:'.block',           //拖拽元素过滤器
     handlers:[],                 //拖拽操作代理dom
@@ -216,7 +207,7 @@ var drag = new T.Drag({
  * 初始化宿主
  */
 
-var dragOwner = new T({
+var dragOwner = new T.Base({
     container:'.J_container_drag',
     selector:'div',
     unitMargin:{
