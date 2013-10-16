@@ -1,7 +1,7 @@
 /**
  * @autoResponsive 组件安全适配器
  */
-KISSY.add(function(S, Base,Hash,Drag,Loader,Sort) {
+KISSY.add(function(S,Base,Hash,Drag,Loader,Sort) {
     var DOM = S.DOM,
         Event = S.Event;
 
@@ -252,6 +252,7 @@ KISSY.add(function(S, Base,Hash,Drag,Loader,Sort) {
         S.augment(SafeAutoResponsiveSort, {
 
             init:function(owner){
+                alert(1)
                 this.inner.init(owner);
             },
             /**
