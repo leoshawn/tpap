@@ -108,7 +108,9 @@ KISSY.add(function(S, Base,Hash,Drag,Loader,Sort) {
         }
 
         S.augment(SafeAutoResponsiveHash, {
-           
+            init:function(owner){
+                this.inner(owner);
+            },
             hasHash: function () {
                 this.inner.hasHash();
             },
@@ -133,7 +135,7 @@ KISSY.add(function(S, Base,Hash,Drag,Loader,Sort) {
 
         frameGroup.markCtor(SafeAutoResponsiveHash);
 
-        S.each(['hasHash', 'parse', 'getParam', 'getPriority', 'getFilter', 'init'], function(fn) {
+        S.each(['init','hasHash', 'parse', 'getParam', 'getPriority', 'getFilter'], function(fn) {
             frameGroup.grantMethod(SafeAutoResponsiveHash, fn);
         });
 
@@ -144,6 +146,10 @@ KISSY.add(function(S, Base,Hash,Drag,Loader,Sort) {
         }
 
         S.augment(SafeAutoResponsiveDrag, {
+            
+            init:function(owner){
+                this.inner.init(owner);
+            },
             /**
              * 动态改变配置
              */
@@ -161,7 +167,7 @@ KISSY.add(function(S, Base,Hash,Drag,Loader,Sort) {
 
         frameGroup.markCtor(SafeAutoResponsiveDrag);
 
-        S.each(['changCfg', 'stop', 'restore', 'init'], function(fn) {
+        S.each(['init','changCfg', 'stop', 'restore'], function(fn) {
             frameGroup.grantMethod(SafeAutoResponsiveDrag, fn);
         });
 
@@ -174,6 +180,9 @@ KISSY.add(function(S, Base,Hash,Drag,Loader,Sort) {
 
         S.augment(SafeAutoResponsiveLoader, {
 
+            init:function(owner){
+                this.inner.init(owner);
+            },
             /**
              * 暴露成外部接口，主要目的是让使用者可以动态改变loader某些配置（如mod），而不需要重新实例化
              * 修改的配置会立即生效
@@ -229,7 +238,7 @@ KISSY.add(function(S, Base,Hash,Drag,Loader,Sort) {
 
         frameGroup.markCtor(SafeAutoResponsiveLoader);
 
-        S.each(['changeCfg', 'load', 'start', 'stop', 'pause', 'resume', 'destroy', 'init'], function(fn) {
+        S.each(['init','changeCfg', 'load', 'start', 'stop', 'pause', 'resume', 'destroy'], function(fn) {
             frameGroup.grantMethod(SafeAutoResponsiveLoader, fn);
         });
 
@@ -242,8 +251,8 @@ KISSY.add(function(S, Base,Hash,Drag,Loader,Sort) {
 
         S.augment(SafeAutoResponsiveSort, {
 
-            init:function(){
-                this.inner.init();
+            init:function(owner){
+                this.inner.init(owner);
             },
             /**
              * 暴露成外部接口
@@ -299,7 +308,7 @@ KISSY.add(function(S, Base,Hash,Drag,Loader,Sort) {
 
         frameGroup.markCtor(SafeAutoResponsiveSort);
 
-        S.each(['changeCfg', 'random', 'priority', 'reverse', 'filter', 'custom', 'clear', 'restore', 'init'], function(fn) {
+        S.each(['init','changeCfg', 'random', 'priority', 'reverse', 'filter', 'custom', 'clear', 'restore'], function(fn) {
             frameGroup.grantMethod(SafeAutoResponsiveSort, fn);
         });
 
