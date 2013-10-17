@@ -18,6 +18,9 @@ var priority = new T.Base({
     autoInit:false,
     closeAnim:false
 });
+priority.on('afterInit',function(e){
+    console.log(123123)
+});
 priority.init();
 
 

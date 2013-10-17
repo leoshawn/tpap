@@ -84,6 +84,7 @@ KISSY.add(function(S,Base,Hash,Drag,Loader,Sort) {
             },
             on:function(type,fn){
                 this.inner.on(type, frameGroup.markFunction(function(ev){
+                    console.log(ev)
                     fn.call(this,ev);
                 }));
             }
