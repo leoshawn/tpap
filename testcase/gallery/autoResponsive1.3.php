@@ -13,19 +13,19 @@
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li>
-                        <a href="../../">Introduction</a>
+                        <a href="http://xudafeng.github.io/autoResponsive/">Introduction</a>
                     </li>
                     <li>
-                        <a href="../docs">Docs</a>
+                        <a href="http://xudafeng.github.io/autoResponsive/cat/docs/">Docs</a>
                     </li>
                     <li>
-                        <a href="../demos">Demos</a>
+                        <a href="http://xudafeng.github.io/autoResponsive/cat/demos/">Demos</a>
                     </li>
                     <li class="">
-                        <a href="../custom">Custom</a>
+                        <a href="http://xudafeng.github.io/autoResponsive/cat/custom/">Custom</a>
                     </li>
                     <li class="">
-                        <a href="../../../diamond" target="_blank">jQuery版本</a>
+                        <a href="http://xudafeng.github.io/diamond/" target="_blank">jQuery版本</a>
                     </li>
                     <li class="active">
                         <a href="#TrivialReporter">TestCase</a>
