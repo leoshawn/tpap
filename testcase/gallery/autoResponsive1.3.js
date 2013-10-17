@@ -21,6 +21,10 @@ var priority = new T.Base({
 priority.on('afterInit',function(e){
     console.log(123123)
 });
+priority.on('beforeLocate', function() {
+    console.log('beforeLocate');
+});
+
 priority.init();
 
 

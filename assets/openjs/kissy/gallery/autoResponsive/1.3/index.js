@@ -84,8 +84,18 @@ KISSY.add(function(S,Base,Hash,Drag,Loader,Sort) {
             },
             on:function(type,fn){
                 this.inner.on(type, frameGroup.markFunction(function(ev){
-                    console.log(ev)
-                    fn.call(this,ev);
+                    if(ev.autoResponsive) {
+                        if (ev.autoResponsive.elm) {
+                            ev.autoResponsive.elm = cajaAFTB.tameNode(ev.autoResponsive.elm);
+                        } else if (S.isArray(ev.autoResponsive.elms)) {
+                            S.each(ev.autoResponsive.elms, function(item) {
+                                item = cajaAFTB.tameNode(item);
+                            });
+                        }
+                    }
+                    fn.call(this, {
+                        autoResponsive: ev.autoResponsive
+                    });
                 }));
             }
         });
