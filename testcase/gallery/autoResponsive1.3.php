@@ -50,6 +50,7 @@
                     <li><a href="#unitMargin"><i class="icon-chevron-right"></i>unitMargin</a></li>
                     <li><a href="#direction"><i class="icon-chevron-right"></i>direction</a></li>
                     <li><a href="#drag"><i class="icon-chevron-right"></i>drag</a></li>
+                    <li><a href="#append"><i class="icon-chevron-right"></i>append</a></li>
                     <li><a href="#TrivialReporter"><i class="icon-chevron-right"></i>TrivialReporter</a></li>
                 </ul>
             </div>
@@ -225,6 +226,28 @@
                         <div class="block yellow circle">14</div>
                         <div class="block blue">15</div>
                         <div class="block green">16</div>
+                    </div>
+                </section>
+
+                <section id="append" data-title="append">
+
+                    <h2>append</h2>
+
+                    <div class="btn-group">
+                        <button type="button" class="J_button_append btn btn-primary append">append</button>
+                        <button type="button" class="J_button_append btn btn-primary prepend">prepend</button>
+                        <button type="button" class="J_button_append btn btn-primary remove">remove</button>
+                    </div>
+                    <p></p>
+                    <div class="ks-autoResponsive-container J_container_append">
+                        <div class="block red">1</div>
+                        <div class="block yellow">2</div>
+                        <div class="block blue circle">3</div>
+                        <div class="block green">4</div>
+                        <div class="block red">5</div>
+                        <div class="block yellow">6</div>
+                        <div class="block blue circle">7</div>
+                        <div class="block green">8</div>
                     </div>
                 </section>
             </div>

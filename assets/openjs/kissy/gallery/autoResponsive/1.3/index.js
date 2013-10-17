@@ -73,14 +73,16 @@ KISSY.add(function(S,Base,Hash,Drag,Loader,Sort) {
              * @param {Object} 节点对象（可以为单个元素、多个元素数组、fragments，以及混合数组）
              */
             append: function (nodes) {
-                this.inner.append(nodes);
+                var _elm = typeof(nodes) ==='string'?DOM.create(cajaAFTB.sanitizeHtml(nodes)):nodes;
+                this.inner.append(_elm);
             },
             /**
              * dom prepend 方法,耗费性能
              * @param {Object} 节点对象（可以为单个元素、多个元素数组、fragments，以及混合数组）
              */
             prepend: function (nodes) {
-                this.inner.prepend(nodes);
+                var _elm = typeof(nodes) ==='string'?DOM.create(cajaAFTB.sanitizeHtml(nodes)):nodes;
+                this.inner.prepend(_elm);
             },
             on:function(type,fn){
                 this.inner.on(type, frameGroup.markFunction(function(ev){
