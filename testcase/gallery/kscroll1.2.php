@@ -9,6 +9,116 @@
 <link rel="stylesheet" href="http://gallery.kissyui.com/kscroll/1.2/assets/clear.css"/>
 <link rel="stylesheet" href="http://gallery.kissyui.com/kscroll/1.2/assets/nice.css"/>
 <div class="J_TScriptedModule" data-componentid="uniqueSign">
+<style type="text/css">
+    
+/*轨道*/
+.kscroll-track, .kscroll-track-hover, .kscroll-track-active,
+.kscroll-scrollbar,
+/*向上箭头*/
+.kscroll-arrowup, .kscroll-arrowup-hover, .kscroll-arrowup-active,
+/*向下箭头*/
+.kscroll-arrowdown, .kscroll-arrowdown-hover, .kscroll-arrowdown-active,
+/*拖拽条*/
+.kscroll-drag, .kscroll-drag-hover, .kscroll-drag-active,
+.kscroll-dragtop, .kscroll-dragbottom , .kscroll-dragcenter {
+    width:10px;
+}
+.kscroll-scrollbar {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    background-color:#E3E3E3;
+}
+
+.kscroll-track-hover {
+    background-color:#D9D8D8;
+}
+.kscroll-track-active {
+    background-color:#D9D8D8;
+}
+
+.kscroll-track{
+    position:absolute;
+}
+
+
+/*上下箭头 */
+.kscroll-arrowup, 
+.kscroll-arrowdown,
+.kscroll-arrowup a, 
+.kscroll-arrowdown a {
+    display:block;
+    text-indent: -1000px;
+    width:8px;
+    height:8px;
+    overflow:hidden;
+    border:1px solid #000;
+    right:0;
+    position:absolute;
+}
+
+.kscroll-arrowup a, 
+.kscroll-arrowdown a {
+    border:none;
+}
+
+
+.kscroll-arrowup {
+    background-color:#959695;
+    top:0;
+}
+.kscroll-arrowup-hover {
+    background-color:#9CCAE3;
+}
+.kscroll-arrowup-active {
+    background-color:#3C7FB1;
+}
+
+
+.kscroll-arrowdown {
+    background-color:#959695;
+    bottom:0;
+}
+.kscroll-arrowdown-hover {
+    background-color:#9CCAE3;
+}
+.kscroll-arrowdown-active {
+    background-color:#3C7FB1;
+}
+
+
+
+/*拖拽条*/
+.kscroll-drag{
+    background-color:#979797;
+    position:absolute;
+}
+
+.kscroll-drag .kscroll-dragtop, .kscroll-drag .kscroll-dragbottom{
+    display:none;
+}
+
+.kscroll-drag .kscroll-dragcenter{
+    position:absolute;
+    top:50%;
+    margin-top:-10px;
+    height:20px;
+    background-color::#18598A;
+}
+
+/*------------*/
+.kscroll-drag-hover{
+    background-color:#9CCAE3;
+}
+
+/*------------*/
+.kscroll-drag-active{
+    background-color:#3C7FB1;
+}
+
+    
+</style>
   <div style="width:500px;margin:0 auto;" class="my">
   <div class="s-section">
     <div class="s-demo">
