@@ -235,3 +235,36 @@ E.on('.J_button_drag','click',function(e){
         drag.restore();
     }
 });
+
+
+var append = new T.Base({
+    container:'.J_container_append',
+    selector:'div',
+    unitMargin:{
+        x :10,
+        y:10
+    },
+    autoInit:false
+});
+append.init();
+E.on('.J_button_append','click',function(e){
+
+    var _target = e.target;
+
+    if(D.hasClass(_target,'append')){
+        var _elm = '<div class="block red">1+</div><div class="block yellow">2+</div><div class="block blue circle">3+</div>';
+        append.append(_elm);
+
+    }else if(D.hasClass(_target,'prepend')){
+        var _elm = '<div class="block red">1</div><div class="block yellow">2</div><div class="block blue circle">3</div>';
+        append.prepend(_elm);
+
+    }else if(D.hasClass(_target,'remove')){
+
+        var _elm = document.getElementsByClassName('J_container_append')[0].getElementsByTagName('div')[0];
+
+        _elm.parentNode.removeChild(_elm);
+
+        append.adjust();
+    }
+});
