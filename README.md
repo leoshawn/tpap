@@ -45,10 +45,10 @@ utf8 编码
 
 #### 代码运行
 ##### 适配
-1. `clone https://github.com/lorrylockie/t-caja.git caja` 到本工程同级目录
-2. 将caja和当前项目目录，放到php 服务器中，访问 index.php访问项目首页
-3. 按照流程编写完测试用例后，直接访问测试的php文件。在运行测试代码的url上加上__dev__参数可以测试caja，如果不测试caja可以省略第一个步骤.
-4. 编写完适配代码，`grunt`, 项目打包
+1. `clone https://github.com/lorrylockie/tpap tpap` 到本地目录
+2. 将tpap文件夹部署到php服务器中, 访问http://yourphphost/tpap/index.php
+3. 按照流程编写完测试用例的php文件. 如http://yourphphost/tpap/testcase/xxxxx/yourtestcase.php
+
 
 ### 贡献者
 * @lorrylockie
