@@ -1,3 +1,7 @@
+/**
+ * TODO 配置参数，holderCls的限制？
+ *
+ */
 KISSY.add(function(S, D, E, LimitFixed) {
 
     function init(frameGroup) {
@@ -53,11 +57,21 @@ KISSY.add(function(S, D, E, LimitFixed) {
                         fixhook = args[0],
                         limithook = args[1],
                         cfg = args[2],
+                        elLimits;
+
+                    // 只有fixedhook和cfg的场景。
+                    if(!cfg) {
+                        cfg = limithook;
+
+                        elLimits = [null];
+                    }else {
                         elLimits = D.query(limithook, context.mod);
+                    }
 
                     S.each(elLimits, function(elLimit) {
-                        var elFixed = D.get(fixhook, elLimit),
-                            instance = new SafeLimitFixed(elFixed, elLimit, cfg)
+                        // 如果limit参数未填，默认效果是针对document进行浮动，但是元素要限制在context.mod中。
+                        var elFixed = D.get(fixhook, elLimit || context.mod),
+                            instance = new SafeLimitFixed(elFixed, elLimit || document.body, cfg);
                         rt.push(instance);
                     });
                     return rt;
