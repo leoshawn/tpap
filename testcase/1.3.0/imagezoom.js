@@ -21,7 +21,7 @@ var iz = new ImageZoom({
 
 
 KISSY.Event.on('.taeapp-imgList img','click',function(e){
-	var data = KISSY.DOM.attr(this, 'data-ks-imagezoom');
+	var data = KISSY.DOM.attr(this, 'data-ks-imagezoom')
 	iz.set('hasZoom', KISSY.DOM.attr(this, 'data-has-zoom'));
 	iz.set('imageSrc', data + '_310x310.jpg');
 	if (data && iz.get('hasZoom')) {
