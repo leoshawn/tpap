@@ -16,6 +16,7 @@ KISSY.add(function (S, Verify) {
              */
             verify: function (field) {
               var result = this.inner.verify(field);
+                S.log(result)
                 return result;
             },
             /**
