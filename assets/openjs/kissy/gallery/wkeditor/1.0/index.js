@@ -1,13 +1,9 @@
-KISSY.add(function(S, WKeditor) {
+KISSY.add(function(S,DOM, WKeditor) {
 
     function init(frameGroup) {
 
         function SafeWKeditor(options) {
-            this.inner = new WKeditor({
-                ele: cajaAFTB.tameNode(options.ele),
-                message:cajaAFTB.sanitizeHtml(options.message),
-                font:options.font
-            });
+            this.inner = new WKeditor(options);
         }
         SafeWKeditor.prototype.init = function() {
             return this.inner.init();
@@ -21,7 +17,7 @@ KISSY.add(function(S, WKeditor) {
         }
 
         SafeWKeditor.prototype.addFont = function(obj,callback) {
-             return this.inner.addFont(obj,callback);
+             return this.inner.addFont(obj,frameGroup.tame(callback));
         }
 
 
@@ -35,7 +31,12 @@ KISSY.add(function(S, WKeditor) {
         return function(context) {
 
             return {
-                WKeditor: SafeWKeditor,
+                WKeditor: frameGroup.markFunction(function () {
+                    var options = cajaAFTB.untame(arguments[0]);
+                        options.ele = DOM.get(options.ele,context.mod);
+                        options.message = cajaAFTB.sanitizeHtml(options.message);
+                    return new SafeWKeditor(options);
+                }),
                 kissy: true
             }
         }
@@ -45,5 +46,5 @@ KISSY.add(function(S, WKeditor) {
     return init;
 
 }, {
-    requires: ['gallery/WKeditor/1.0/']
+    requires: ['dom','gallery/WKeditor/1.0/index']
 });
