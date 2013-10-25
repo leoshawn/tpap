@@ -19,6 +19,7 @@
     <li><a href="./gallery/autoResponsive1.3.php">autoResponsive</a></li>
     <li><a href="./thirdparty/alimap.php">alimap</a></li>
     <li><a href="./thirdparty/jssdk.php">jssdk</a></li>
+    <li><a href="./gallery/verify1.3.php">verify 垂直表单验证</a></li>
 </ul>
 
 </body>
