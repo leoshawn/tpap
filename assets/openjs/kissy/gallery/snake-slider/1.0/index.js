@@ -14,12 +14,15 @@ KISSY.add(function(S, SnakeSlider)
      */
     function init(frameGroup)
     {
+        var i;
+
         /**
          * 轮播组件封装
          * 对原始构造函数做一层封装，然后暴露给第三方环境（相当于继承KISSY的组件）
          */
         function SafeSnakeSlider(config, mod)
         {
+            this.mod = mod;
             var cfg = cajaAFTB.untame(config), slices, slice, node, i;
             cfg.container = S.get(cfg.container, mod);
             if (slices = cfg.slices)
@@ -34,40 +37,69 @@ KISSY.add(function(S, SnakeSlider)
                     }
                 }
             }
-            cfg.container = S.get(slices.container, mod);
             this.inner = new SnakeSlider(cfg);
         }
         
-        SafeSnakeSlider.prototype =
+        function untameSlice(slice)
+        {
+            if (slice && typeof slice == "object" && slice.constructor != SnakeSlider.CHILD_WIDGET)
+            {
+                try
+                {
+                    slice = cajaAFTB.untame(slice);
+                }
+                catch (e)
+                {
+                }
+                var value = slice.sliceNode;
+                if (value)
+                {
+                    slice.sliceNode = typeof value == "string" ? S.get(value, this.mod) : value;
+                }
+                value = slice.indicatorNode;
+                if (value)
+                {
+                    slice.indicatorNode = typeof value == "string" ? S.get(value, this.mod) : value;
+                }
+                value = slice.lazyRenderNode;
+                if (value)
+                {
+                    slice.lazyRenderNode = typeof value == "string" ? S.get(value, this.mod) : value;
+                }
+            }
+            return slice;
+        }
+        
+        S.augment(SafeSnakeSlider,
         {
             switchTo: function(slice)
             {
-                this.inner.switchTo(cajaAFTB.untame(slice));
+                this.inner.switchTo(slice);
             },
 
             nextSlice: function(recurring)
             {
-                return frameGroup.tame(this.inner.nextSlice(recurring));
+                return this.inner.nextSlice(recurring);
             },
 
             previousSlice: function(recurring)
             {
-                return frameGroup.tame(this.inner.nextSlice(recurring));
+                return this.inner.previousSlice(recurring);
             },
 
             getActiveSlice: function()
             {
-                return frameGroup.tame(this.inner.getActiveSlice());
+                return this.inner.getActiveSlice();
             },
             
             getSliceByIndex: function(index)
             {
-                return frameGroup.tame(this.inner.getSliceByIndex(index));
+                return this.inner.getSliceByIndex(index);
             },
             
             getSliceById: function(id)
             {
-                return frameGroup.tame(this.inner.getSliceById(id));
+                return this.inner.getSliceById(id);
             },
             
             bindSliceEvent: function(name, listener, context)
@@ -95,17 +127,17 @@ KISSY.add(function(S, SnakeSlider)
 
             appendSlice: function(slice)
             {
-                return frameGroup.tame(this.inner.appendSlice(cajaAFTB.untame(slice)));
+                return this.inner.appendSlice(untameSlice(slice));
             },
             
             insertSlice: function(slice, index)
             {
-                return frameGroup.tame(this.inner.insertSlice(cajaAFTB.untame(slice), index));
+                return this.inner.insertSlice(untameSlice(slice), index);
             },
             
-            removeSlice: function(slice)
+            removeSlice: function(index)
             {
-                return frameGroup.tame(this.inner.removeSlice(cajaAFTB.untame(slice)));
+                return this.inner.removeSlice(index);
             },
 
             clearSlices: function()
@@ -113,6 +145,26 @@ KISSY.add(function(S, SnakeSlider)
                 this.inner.clearSlices();
             },
 
+            stopAutoSwitch: function()
+            {
+                this.inner.stopAutoSwitch();
+            },
+            
+            pauseAutoSwitch: function()
+            {
+                this.inner.pauseAutoSwitch();
+            },
+
+            resumeAutoSwitch: function()
+            {
+                this.inner.resumeAutoSwitch();
+            },
+
+            isAutoSwitchStarted: function()
+            {
+                return this.inner.isAutoSwitchStarted();
+            },
+
             on: function(type, listener, context)
             {
                 var self = this;
@@ -120,93 +172,61 @@ KISSY.add(function(S, SnakeSlider)
                 {
                     listener.call(cajaAFTB.untame(context) || self, frameGroup.tame(e));
                 });
-            }
-        };
-        // 无参数方法
-        var methods = ["stopAutoSwitch", "pauseAutoSwitch", "resumeAutoSwitch", "isAutoSwitchStarted"], i;
-        for (i = methods.length; -- i > -1;)
-        {
-            SafeSnakeSlider.prototype[methods[i]] = function()
+            },
+            
+            get: function(name)
             {
-                return this.inner[methods[i]]();
-            };
-        }
-        
+                var result = this.inner.get(name);
+                return result.hasOwnProperty("nodeType") ? cajaAFTB.tameNode(result, true) : frameGroup.tame(result);
+            }
+        });
+
         frameGroup.markCtor(SafeSnakeSlider);  // 标记构造函数
         // 构造函数实例的方法
-        methods = ["switchTo", "nextSlice", "previousSlice", "getActiveSlice", "getSliceByIndex", "getSliceById", "bindSliceEvent", "bindIndicatorEvent", "startAutoSwitch", "appendSlice", "insertSlice", "removeSlice", "clearSlices", "stopAutoSwitch", "pauseAutoSwitch", "resumeAutoSwitch", "isAutoSwitchStarted", "on"], i;
+        methods = ["switchTo", "nextSlice", "previousSlice", "getActiveSlice", "getSliceByIndex", "getSliceById", "bindSliceEvent", "bindIndicatorEvent", "startAutoSwitch", "appendSlice", "insertSlice", "removeSlice", "clearSlices", "stopAutoSwitch", "pauseAutoSwitch", "resumeAutoSwitch", "isAutoSwitchStarted", "on", "get"], i;
         for (i = methods.length; -- i > -1;)
         {
             frameGroup.grantMethod(SafeSnakeSlider, methods[i]);
         }
 
-        /**
-         * 轮播组件-切片封装
-         */
-        function SafeSlice(config, mod)
+        // 对切片类封装，进行适配
+        var SnakeSlice = SnakeSlider.CHILD_WIDGET, bindSliceEvent = SnakeSlice.bindSliceEvent, bindIndicatorEvent = SnakeSlice.bindIndicatorEvent, appendTo = SnakeSlice.appendTo, insertTo = SnakeSlice.insertTo, getFn = SnakeSlice.get;
+        SnakeSlice.bindSliceEvent = function(name, listener, context)
         {
-            var cfg = cajaAFTB.untame(config);
-            cfg.sliceNode = S.get(cfg.sliceNode, mod);
-            cfg.indicatorNode = S.get(cfg.indicatorNode, mod);
-            cfg.lazyRenderNode = S.get(cfg.lazyRenderNode, mod);
-            this.inner = new SnakeSlider.CHILD_WIDGET(cfg);
-        }
-
-        SafeSlice.prototype =
-        {
-            bindSliceEvent: function(name, listener, context)
+            var self = this;
+            bindSliceEvent.call(this, name, function(e)
             {
-                var self = this;
-                this.inner.bindSliceEvent(name, function(e)
-                {
-                    listener.call(cajaAFTB.untame(context) || self, e);
-                });
-            },
-
-            bindIndicatorEvent: function(name, listener, context)
-            {
-                var self = this;
-                this.inner.bindIndicatorEvent(name, function(e)
-                {
-                    listener.call(cajaAFTB.untame(context) || self, e);
-                });
-            },
-
-            appendTo: function(slider)
-            {
-                return frameGroup.tame(this.inner.appendTo(cajaAFTB.untame(slider)));
-            },
-            
-            insertTo: function(slider, index)
-            {
-                return frameGroup.tame(this.inner.insertTo(cajaAFTB.untame(slider), index));
-            },
-            
-            on: function(type, listener, context)
-            {
-                var self = this;
-                this.inner.on(type, function(e)
-                {
-                    listener.call(cajaAFTB.untame(context) || self, frameGroup.tame(e));
-                });
-            }
+                listener.call(cajaAFTB.untame(context) || self, e);
+            });
         };
-        // 无参数方法
-        methods = ["activate", "deactivate", "displayActiveSliceStyle", "displayInactiveSliceStyle", "displayActiveIndicatorStyle", "displayInactiveIndicatorStyle", "renderLazily", "remove"], i;
-        for (i = methods.length; -- i > -1;)
+        SnakeSlice.bindIndicatorEvent = function(name, listener, context)
         {
-            SafeSlice.prototype[methods[i]] = function()
+            var self = this;
+            bindIndicatorEvent.call(this, name, function(e)
             {
-                return this.inner[methods[i]]();
-            };
-        }
+                listener.call(cajaAFTB.untame(context) || self, e);
+            });
+        };
+        SnakeSlice.appendTo = function(slider)
+        {
+            return frameGroup.tame(appendTo.call(this, cajaAFTB.untame(slider)));
+        };
+        SnakeSlice.insertTo = function(slider, index)
+        {
+            return frameGroup.tame(insertTo.call(this, cajaAFTB.untame(slider), index));
+        };
+        SnakeSlice.get = function(name)
+        {
+            var result = getFn.call(this, name);
+            return result.hasOwnProperty("nodeType") ? cajaAFTB.tameNode(result, true) : frameGroup.tame(result);
+        };
 
-        frameGroup.markCtor(SafeSlice);  // 标记构造函数
+        frameGroup.markCtor(SnakeSlice);  // 标记构造函数
         // 构造函数实例的方法
-        methods = ["bindSliceEvent", "bindIndicatorEvent", "appendTo", "insertTo", "activate", "deactivate", "displayActiveSliceStyle", "displayInactiveSliceStyle", "displayActiveIndicatorStyle", "displayInactiveIndicatorStyle", "renderLazily", "remove", "on"], i;
+        methods = ["bindSliceEvent", "bindIndicatorEvent", "appendTo", "insertTo", "activate", "deactivate", "displayActiveSliceStyle", "displayInactiveSliceStyle", "displayActiveIndicatorStyle", "displayInactiveIndicatorStyle", "renderLazily", "remove", "on", "get"], i;
         for (i = methods.length; -- i > -1;)
         {
-            frameGroup.grantMethod(SafeSlice, methods[i]);
+            frameGroup.grantMethod(SnakeSlice, methods[i]);
         }
 
         return function(context)
@@ -221,15 +241,11 @@ KISSY.add(function(S, SnakeSlider)
                 }),
                 kissy: true  // 是KISSY这个对象的一个属性
             };
-            result.SnakeSlider.CHILD_WIDGET = frameGroup.markFunction(function()
-            {
-                var cfg = cajaAFTB.untame(arguments[0]);
-                return new SafeSlice(cfg, context.mod);
-            });
             return result;
         };
     }
+    return init;
 },
 {
-    requires: ["gallery/snake-slider/1.0/index", "gallery/layer-anim/1.1/index"]
+    requires: ["gallery/snake-slider/1.0/index"]
 });

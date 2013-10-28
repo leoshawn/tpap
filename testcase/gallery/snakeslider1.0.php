@@ -32,11 +32,17 @@
         #slice2 .subtitle1 {top: 270px; left: 360px; color: #FFF; background: #fda444; background: -moz-linear-gradient(left, #fda444 0%, #c54a00 100%); background: -webkit-gradient(linear, left top, right top, color-stop(0%, #fda444), color-stop(100%, #c54a00)); background: -webkit-linear-gradient(left, #fda444 0%, #c54a00 100%); background: -o-linear-gradient(left, #fda444 0%, #c54a00 100%); background: -ms-linear-gradient(left, #fda444 0%,#c54a00 100%); background: linear-gradient(to right, #fda444 0%, #c54a00 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fda444', endColorstr='#c54a00', GradientType=1);}
         #slice2 .subtitle2 {top: 320px; left: 360px; color: #a04a00; background: #FFF;}
         
-        #slice3 {background-color: orange; opacity: 0; visibility: hidden;}
+        #slice3 {background-color: navy; opacity: 0; visibility: hidden;}
         #slice3 h1 {top: 112px; left: 290px; position: absolute; color: #0b2e49; text-shadow: 2px 2px 2px #dfebeb; opacity: 0;}
         #slice3 h2 {position: absolute; padding: 0px 10px; height: 36px; line-height: 36px; box-shadow: 0px 4px 10px -6px #000; opacity: 0;}
         #slice3 .subtitle1 {top: 210px; left: 300px; color: #FFF; background: #00b4ff; background: -moz-linear-gradient(left, #00b4ff 0%, #007199 100%); background: -webkit-gradient(linear, left top, right top, color-stop(0%, #00b4ff), color-stop(100%, #007199)); background: -webkit-linear-gradient(left, #00b4ff 0%, #007199 100%); background: -o-linear-gradient(left, #00b4ff 0%, #007199 100%); background: -ms-linear-gradient(left, #00b4ff 0%,#007199 100%); background: linear-gradient(to right, #00b4ff 0%, #007199 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00b4ff', endColorstr='#007199', GradientType=1);}
         #slice3 .subtitle2 {top: 260px; left: 420px; color: #007199; background: #FFF;}
+        
+        #slice4 {background-color: orange; opacity: 0; visibility: hidden;}
+        #slice4 h1 {top: 112px; left: 290px; position: absolute; color: #0b2e49; text-shadow: 2px 2px 2px #dfebeb; opacity: 0;}
+        #slice4 h2 {position: absolute; padding: 0px 10px; height: 36px; line-height: 36px; box-shadow: 0px 4px 10px -6px #000; opacity: 0;}
+        #slice4 .subtitle1 {top: 210px; left: 300px; color: #FFF; background: #00b4ff; background: -moz-linear-gradient(left, #00b4ff 0%, #007199 100%); background: -webkit-gradient(linear, left top, right top, color-stop(0%, #00b4ff), color-stop(100%, #007199)); background: -webkit-linear-gradient(left, #00b4ff 0%, #007199 100%); background: -o-linear-gradient(left, #00b4ff 0%, #007199 100%); background: -ms-linear-gradient(left, #00b4ff 0%,#007199 100%); background: linear-gradient(to right, #00b4ff 0%, #007199 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00b4ff', endColorstr='#007199', GradientType=1);}
+        #slice4 .subtitle2 {top: 260px; left: 420px; color: #007199; background: #FFF;}
         
         .slider-misc {padding: 10px 12px; right: 0; bottom: 0; color: #a2e1d4; font-size: 14px; position: absolute; white-space: nowrap; cursor: default;}
         
@@ -64,29 +70,37 @@
             </div>
             <div id="slice2" class="slider-slice">
                 <h1>SnakeSlider</h1>
-                <h2 class="subtitle1">显示和隐藏动画可分别定义</h2>
-                <h2 class="subtitle2">支持延迟加载、定时切换……</h2>
+                <h2 class="subtitle1">多用途组件</h2>
+                <h2 class="subtitle2">不仅仅是轮播组件，也是Tab、抽屉、手风琴组件</h2>
             </div>
             <div id="slice3" class="slider-slice">
                 <h1>SnakeSlider</h1>
-                <h2 class="subtitle1">即插即用的插件，方便扩展</h2>
-                <h2 class="subtitle2">可将DOM直接转换为轮播组件，使用更方便</h2>
+                <h2 class="subtitle1">使用方便，支持将HTML配置转换为组件</h2>
+                <h2 class="subtitle2">内置插件机制，易于扩展</h2>
+            </div>
+            <div id="slice4" class="slider-slice">
+                <h1>SnakeSlider</h1>
+                <h2 class="subtitle1">完备的API</h2>
+                <h2 class="subtitle2">例如：动态添加、删除切片等</h2>
             </div>
         </div>
         <a class="nav-direction nav-prev" href="#" hideFocus="true">&lt;</a>
         <a class="nav-direction nav-next" href="#" hideFocus="true">&gt;</a>
         <div class="nav-wrapper">
-            <a class="nav-play" href="#" hideFocus="true">play</a>
+            <a class="nav-play" href="#" hideFocus="true">start</a>
             <span class="nav-btn">
                 <a id="nav1" class="slider-slice-indicator" href="#" hideFocus="true"> 1 </a>
                 <a id="nav2" class="slider-slice-indicator" href="#" hideFocus="true"> 2 </a>
                 <a id="nav3" class="slider-slice-indicator" href="#" hideFocus="true"> 3 </a>
             </span>
-            <a class="nav-stop" href="#" hideFocus="true"> stop</a>
+            <a class="nav-stop" href="#" hideFocus="true">stop</a>
         </div>
     </div>
-    
-    <button class="run">run</button>
+    <button id="BtnSwitchTo">switchTo</button>
+    <button id="BtnAppendSlice">appendSlice</button>
+    <button id="BtnRemoveSlice">removeSlice</button>
+    <button id="BtnClearSlices">clearSlices</button>
+    <button id="BtnIsAutoSwitchStarted">isAutoSwitchStarted</button>
 </div>
 
 <!--模块初始化的包配置，都很熟悉了-->
