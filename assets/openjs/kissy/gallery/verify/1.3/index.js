@@ -1,18 +1,23 @@
 KISSY.add(function (S, Verify,Core) {
     var DOM = S.DOM,
         Event = S.Event;
+
+    function sanitizeInfo(rules){
+        S.each(rules,function(rule){
+            var len = rule && rule.length;
+            if( len && len>1 && rule[len-1])  {
+                rule[len-1]= cajaAFTB.sanitizeHtml(rule[len-1]);
+            }
+        });
+        return rules;
+    }
     //适配代码在这
     function init(frameGroup) {
         function SafeVerify(el, config) {
             if(config.fields){
                 S.each(config.fields,function(rules){
 
-                    S.each(rules,function(rule){
-                      var len = rule && rule.length;
-                      if( len && len>1 && rule[len-1])  {
-                         rule[len-1]= cajaAFTB.sanitizeHtml(rule[len-1]);
-                      }
-                    });
+                    rules = sanitizeInfo(rules);
                 });
             }
             this.inner = new Verify(el, cajaAFTB.untame(config));
@@ -34,8 +39,18 @@ KISSY.add(function (S, Verify,Core) {
              * @param field
              * @param val
              */
-            add: function (field, rule) {
-                this.inner.add(field, rule);
+            add: function (field, rules) {
+                rules = sanitizeInfo(rules);
+                this.inner.add(field, rules);
+            },
+            /**
+             * 修改某个校验域 。
+             * @param field
+             * @param val
+             */
+            modify: function (field, rules) {
+                rules = sanitizeInfo(rules);
+                this.inner.modify(field, rules);
             },
             /**
              * 重置显示状态
@@ -98,7 +113,7 @@ KISSY.add(function (S, Verify,Core) {
 
         //构造函数实例的方法，需要grantMethod ，加入白名单，没有授权的方法，不可以使用，容器不认识
 
-        S.each([ 'verify', 'add', 'remove', 'disable', 'reset', 'error','fire','on'], function (fuc) {
+        S.each([ 'verify', 'add','modify', 'remove', 'disable', 'reset', 'error','fire','on'], function (fuc) {
             frameGroup.grantMethod(SafeVerify, fuc);
         });
 

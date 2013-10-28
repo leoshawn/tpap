@@ -11,7 +11,7 @@ display:none;
 <div id="dom-test" data-componentid="uniqueSign" class="J_TScriptedModule">
 <form action="index.php">
 <fieldset class="mod mod-contacter" id="J_Container1">
-    <header class="hd">默认样式</header>
+    <header class="hd">点击之后，移除姓名校验，电子邮箱不必填，并添加了备选号码的校验</header>
     <div class="bd ">
         <div class="contacter-frequently-used clearfix" ></div>
         <ul class="contacter-info">
