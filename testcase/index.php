@@ -20,6 +20,7 @@
     <li><a href="./thirdparty/alimap.php">alimap</a></li>
     <li><a href="./thirdparty/jssdk.php">jssdk</a></li>
     <li><a href="./gallery/treemenu1.0.php">树形菜单treemenu</a></li>
+    <li><a href="./gallery/limitfixed1.0.php">limitfixed</a></li>
 </ul>
 
 </body>

@@ -548,6 +548,13 @@ KISSY.add(function (S, Calendar) {
                         return tame(ret[0], true);
                     }),
 
+                    t:frameGroup.markFunction(function(){
+                        return {
+                            b:1,
+                            a:tame(document.getElementsByTagName('div')[0])
+                        }
+                    }),
+
                     // 提供选择器功能
                     query: frameGroup.markFunction(function (s, context) {
                         var ret = query(s, context);

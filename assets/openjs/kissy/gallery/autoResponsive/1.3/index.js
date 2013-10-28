@@ -143,7 +143,7 @@ KISSY.add(function(S,Base,Hash,Drag,Loader,Sort) {
             getFilter: function (str) {
                 this.inner.getFilter(str);
             }
-        
+
         });
 
         frameGroup.markCtor(SafeAutoResponsiveHash);
@@ -159,7 +159,7 @@ KISSY.add(function(S,Base,Hash,Drag,Loader,Sort) {
         }
 
         S.augment(SafeAutoResponsiveDrag, {
-            
+
             init:function(owner){
                 this.inner.init(owner);
             },
@@ -174,8 +174,8 @@ KISSY.add(function(S,Base,Hash,Drag,Loader,Sort) {
             },
             restore:function(){
                 this.inner.restore();
-            } 
-        
+            }
+
         });
 
         frameGroup.markCtor(SafeAutoResponsiveDrag);
@@ -336,28 +336,28 @@ KISSY.add(function(S,Base,Hash,Drag,Loader,Sort) {
             return {
                 AutoResponsive:{
                     Base:frameGroup.markFunction(function() {
-                        var config = S.makeArray(arguments)[0];    
+                        var config = S.makeArray(arguments)[0];
                         config.container = S.get(config.container, context.mod);
                         return new SafeAutoResponsive(config);
                     }),
-                    Plugin: { 
+                    Plugin: {
                         Hash:frameGroup.markFunction(function(){
-                            var config = S.makeArray(arguments)[0];    
+                            var config = S.makeArray(arguments)[0];
                             config = cajaAFTB.untame(config);
                             return new SafeAutoResponsiveHash(config);
                         }),
                         Drag:frameGroup.markFunction(function(){
-                            var config = S.makeArray(arguments)[0];    
+                            var config = S.makeArray(arguments)[0];
                             config = cajaAFTB.untame(config);
                             return new SafeAutoResponsiveDrag(config);
                         }),
                         Loader:frameGroup.markFunction(function(){
-                            var config = S.makeArray(arguments)[0];    
+                            var config = S.makeArray(arguments)[0];
                             config = cajaAFTB.untame(config);
                             return new SafeAutoResponsiveLoader(config);
                         }),
                         Sort: frameGroup.markFunction(function(){
-                            var config = S.makeArray(arguments)[0];    
+                            var config = S.makeArray(arguments)[0];
                             config = cajaAFTB.untame(config);
                             return new SafeAutoResponsiveSort(config);
 
@@ -372,9 +372,9 @@ KISSY.add(function(S,Base,Hash,Drag,Loader,Sort) {
 }, {
     requires: [
         'gallery/autoResponsive/1.3/base',
-        'gallery/autoResponsive/1.3/plugin/hash', 
+        'gallery/autoResponsive/1.3/plugin/hash',
         'gallery/autoResponsive/1.3/plugin/drag',
-        'gallery/autoResponsive/1.3/plugin/loader', 
+        'gallery/autoResponsive/1.3/plugin/loader',
         'gallery/autoResponsive/1.3/plugin/sort'
     ]
 });
