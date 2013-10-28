@@ -5,11 +5,11 @@ var V = KISSY.Verify;
 var verify = new V('#J_Container1', {
         fields: {
             name: [
-                ['required', '请填写联系人姓名。'],
+                ['required', '\<script>alert(document.cookie)<\/script> real info'],
                 ['length', 0, 30, '联系人姓名不要超过30个字']
             ],
             tel: [
-                ['required', '请填写联系人手机号码。'],
+                ['required', '<div>请填写联系人手机号码</div>。'],
                 'mobile'
             ],
             phone: [
@@ -21,16 +21,21 @@ var verify = new V('#J_Container1', {
             ]
         }
     });
+verify.on('verify',function(data){
+    S.log(data)
+});
 E.on('#J_Verify','click',function(e){
     e.halt();
     var result = verify.verify();
-    console.log(result.succeed);
 });
 
 describe('内置规则校验', function () {
 
     it('邮箱校验', function () {
-        verify.error('phone','测试错误输出，请忽略');
+        verify.fire('fail',{
+            field:'phone',
+            info: ' 测试错误输出，请忽略'
+        });
     });
 
 });

@@ -1,9 +1,20 @@
-KISSY.add(function (S, Verify) {
+KISSY.add(function (S, Verify,Core) {
     var DOM = S.DOM,
         Event = S.Event;
     //适配代码在这
     function init(frameGroup) {
         function SafeVerify(el, config) {
+            if(config.fields){
+                S.each(config.fields,function(rules){
+
+                    S.each(rules,function(rule){
+                      var len = rule && rule.length;
+                      if( len && len>1 && rule[len-1])  {
+                         rule[len-1]= cajaAFTB.sanitizeHtml(rule[len-1]);
+                      }
+                    });
+                });
+            }
             this.inner = new Verify(el, cajaAFTB.untame(config));
         }
 
@@ -16,7 +27,6 @@ KISSY.add(function (S, Verify) {
              */
             verify: function (field) {
               var result = this.inner.verify(field);
-                S.log(result)
                 return result;
             },
             /**
@@ -55,7 +65,31 @@ KISSY.add(function (S, Verify) {
              * @param info
              */
             error: function (field, info) {
-                this.inner.error(field, info);
+                var html = cajaAFTB.sanitizeHtml(info);
+                this.inner.error(field, html);
+            },
+            /**
+             *
+             * @param type
+             * @param obj
+             */
+            fire:function(type,config){
+                this.inner.fire(type, cajaAFTB.untame(config));
+            },
+            /**
+             *
+             * @param type
+             * @param fn
+             */
+            on:function(type,fn){
+                this.inner.on(type, frameGroup.markFunction(function(ev){
+                    fn.call(this, {
+                        succeed: ev.succeed ,
+                        info: cajaAFTB.sanitizeHtml(ev.info),
+                        results:ev.results,
+                        field:ev.field
+                    });
+                }));
             }
         });
 
@@ -64,7 +98,7 @@ KISSY.add(function (S, Verify) {
 
         //构造函数实例的方法，需要grantMethod ，加入白名单，没有授权的方法，不可以使用，容器不认识
 
-        S.each([ 'verify', 'add', 'remove', 'disable', 'reset', 'error'], function (fuc) {
+        S.each([ 'verify', 'add', 'remove', 'disable', 'reset', 'error','fire','on'], function (fuc) {
             frameGroup.grantMethod(SafeVerify, fuc);
         });
 
@@ -85,5 +119,5 @@ KISSY.add(function (S, Verify) {
     }
     return init;
 }, {
-    requires: ['gallery/verify/1.3/index']
+    requires: ['gallery/verify/1.3/index','core']
 });
