@@ -91,6 +91,107 @@
       </div>
   </div>
 
+    <style type="text/css">
+        .carousel {
+            font-size: 0;
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #2b81af;
+            width: 1120px;
+        }
+
+        .slide {
+            font-size: 12px;
+            display: inline-block;
+            border: 1px solid #2b81af;
+            width: 340px;
+            padding-right: 30px;
+        }
+
+        .slide .caption {
+            width: 20px;
+            height: 100px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            float: left;
+            text-align: text;
+            padding: 0 5px;
+        }
+
+        .slide .lf-holder {
+            float: left;
+        }
+
+        .slide span {
+            margin-right: 10px;
+        }
+
+        .slide li {
+            display: inline-block;
+            width: 20px;
+            padding: 5px 10px;
+            text-align: center;
+            height: 130px;
+            vertical-align: top;
+        }
+        .slide li:hover {
+            background-color: #e7f2e7;
+        }
+    </style>
+    <h3>横向fixed示例</h3>
+    <div id="J_Carousel" class="carousel">
+        <div class="slide">
+            <div class="caption">第一个区块</div>
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+            <br />
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+            <br />
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+            <br />
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+            <br />
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+        </div>
+        <div class="slide">
+            <div class="caption">第二个区块</div>
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+            <br />
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+            <br />
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+            <br />
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+            <br />
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+        </div>
+        <div class="slide">
+            <div class="caption">第三个区块</div>
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+            <br />
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+            <br />
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+            <br />
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+            <br />
+            <span>内容一</span><span>内容二</span><span>内容三</span><span>内容四</span>
+        </div>
+    </div>
+
+    <style type="text/css">
+        #totop {
+            background-color: graytext;
+            border: 1px solid gray;
+            padding: 10px;
+            color: #fff;
+        }
+        #totop i {
+            font-weight: 700;
+            font-size: 14px;
+        }
+    </style>
+    <a id="totop" href="#"><i class="icon">↑</i>top</a>
+
 </div>
 
 <!--模块初始化的包配置，都很熟悉了-->
