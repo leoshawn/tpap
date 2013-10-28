@@ -1,26 +1,27 @@
-KISSY.add(function (S, Verify,Core) {
+KISSY.add(function (S, Verify, Core) {
     var DOM = S.DOM,
         Event = S.Event;
 
-    function sanitizeInfo(rules){
-        S.each(rules,function(rule){
+    function sanitizeInfo(rules) {
+        S.each(rules, function (rule) {
             var len = rule && rule.length;
-            if( len && len>1 && rule[len-1])  {
-                rule[len-1]= cajaAFTB.sanitizeHtml(rule[len-1]);
+            if (len && len > 1 && rule[len - 1]) {
+                rule[len - 1] = cajaAFTB.sanitizeHtml(rule[len - 1]);
             }
         });
         return rules;
     }
+
     //适配代码在这
     function init(frameGroup) {
-        function SafeVerify(el, config) {
-            if(config.fields){
-                S.each(config.fields,function(rules){
+        function SafeVerify(selector, config) {
+            if (config.fields) {
+                S.each(config.fields, function (rules) {
 
                     rules = sanitizeInfo(rules);
                 });
             }
-            this.inner = new Verify(el, cajaAFTB.untame(config));
+            this.inner = new Verify(selector, cajaAFTB.untame(config));
         }
 
 
@@ -31,7 +32,7 @@ KISSY.add(function (S, Verify,Core) {
              * @returns {{succeed: boolean, results: Array, firstError: null}}
              */
             verify: function (field) {
-              var result = this.inner.verify(field);
+                var result = this.inner.verify(field);
                 return result;
             },
             /**
@@ -88,7 +89,7 @@ KISSY.add(function (S, Verify,Core) {
              * @param type
              * @param obj
              */
-            fire:function(type,config){
+            fire: function (type, config) {
                 this.inner.fire(type, cajaAFTB.untame(config));
             },
             /**
@@ -96,13 +97,13 @@ KISSY.add(function (S, Verify,Core) {
              * @param type
              * @param fn
              */
-            on:function(type,fn){
-                this.inner.on(type, frameGroup.markFunction(function(ev){
+            on: function (type, fn) {
+                this.inner.on(type, frameGroup.markFunction(function (ev) {
                     fn.call(this, {
-                        succeed: ev.succeed ,
+                        succeed: ev.succeed,
                         info: cajaAFTB.sanitizeHtml(ev.info),
-                        results:ev.results,
-                        field:ev.field
+                        results: ev.results,
+                        field: ev.field
                     });
                 }));
             }
@@ -113,7 +114,7 @@ KISSY.add(function (S, Verify,Core) {
 
         //构造函数实例的方法，需要grantMethod ，加入白名单，没有授权的方法，不可以使用，容器不认识
 
-        S.each([ 'verify', 'add','modify', 'remove', 'disable', 'reset', 'error','fire','on'], function (fuc) {
+        S.each([ 'verify', 'add', 'modify', 'remove', 'disable', 'reset', 'error', 'fire', 'on'], function (fuc) {
             frameGroup.grantMethod(SafeVerify, fuc);
         });
 
@@ -127,12 +128,17 @@ KISSY.add(function (S, Verify,Core) {
 
             //最终需要返回给 ISV使用的API，这是真正第三方调用的API，kissy:true意思是这是KISSY这个对象的一个属性
             return {
-                Verify: SafeVerify,//暴露构造函数给caja环境
+                Verify: frameGroup.markFunction(function () {
+                    var config = S.makeArray(arguments)[1];
+                    container = S.get(S.makeArray(arguments)[0], context.mod);
+                    return new SafeVerify(container, config);
+                }),//暴露构造函数给caja环境
                 kissy: true
             };
         };
     }
+
     return init;
 }, {
-    requires: ['gallery/verify/1.3/index','core']
+    requires: ['gallery/verify/1.3/index', 'core']
 });

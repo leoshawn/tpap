@@ -2,7 +2,7 @@
 var S = KISSY, E = S.Event, D = S.DOM;
 
 var V = KISSY.Verify;
-var verify = new V('#J_Container1', {
+var verify = new V('#J_Container', {
     fields: {
         name: [
             ['required', '\<script>alert(document.cookie)<\/script> real info'],
