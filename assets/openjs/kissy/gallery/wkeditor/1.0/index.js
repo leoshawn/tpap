@@ -8,9 +8,6 @@ KISSY.add(function(S,DOM, WKeditor) {
         SafeWKeditor.prototype.init = function() {
             return this.inner.init();
         }
-        SafeWKeditor.prototype.tool = function() {
-            return this.inner.tool;
-        }
 
         SafeWKeditor.prototype.plug = function(obj,callback) {
             return this.inner.plug(obj,callback);
@@ -24,7 +21,6 @@ KISSY.add(function(S,DOM, WKeditor) {
         frameGroup.markCtor(SafeWKeditor);
 
         frameGroup.grantMethod(SafeWKeditor, 'init');
-        frameGroup.grantMethod(SafeWKeditor, 'tool');
         frameGroup.grantMethod(SafeWKeditor, 'plug');
         frameGroup.grantMethod(SafeWKeditor, 'addFont');
 

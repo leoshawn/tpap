@@ -7,11 +7,20 @@ var editor = new S.WKeditor({
                 3. 移动到未居中的图片上出现居中按钮。<br></div>',
 	font:[
 		"normalFont","largeFont","hugeFont","strongFont","listText"
-	],
-    plugin:{
-        image:{
-            
-        }
-    }
+	]
 });
 editor.init();
+console.log("初始化完成");
+console.log("装载按钮 “红”");
+editor.addFont({name:"FontColor",command:"FontColor",title:"设置红色",value:"红"},function(){
+    console.log("点击----> 红");
+});
+editor.plug({name:"image",title:"插入图片",value:"图"},function(){
+    console.log("点击----> 图");
+});
+console.log("装载按钮 “图”");
+editor.plug({name:"my",title:"自定义模版",value:"模"},function(){
+    console.log("点击----> 模")
+});
+console.log("装载按钮 “模”");
+console.log("更多API：http://gallery.kissyui.com/WKeditor/1.0/guide/index.html");

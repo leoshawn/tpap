@@ -43,11 +43,11 @@
     .top .bb{
         width:800px;margin:auto
     }
-    #WKeditor .ForeColor{
+    #WKeditor .FontColor{
         background: #333;
         font-weight: bold;
     }
-    #WKeditor .ForeColor:hover{
+    #WKeditor .FontColor:hover{
         background: #141414;
     }
     .list_color{
@@ -78,6 +78,9 @@
     .link:hover{
         color: #fff;
     }
+    .mini{
+        font-size: 12px;
+    }
 </style>
 <div class="J_TScriptedModule" data-componentid="uniqueSign">
   <h2 class="top">
@@ -86,7 +89,7 @@
   </h2>
 
   <div id="wankePost">
-      <div class='title'>标题</div>    
+      <div class='title'>标题 <span class='mini'>（建议开启控制台查看console.log）</span></div>    
       <div id="WKeditor"></div>
   </div>
 
@@ -99,11 +102,12 @@
         modules:"openjs/kissy/gallery/wkeditor/1.0/index"
     }
 
-</script>
+</script>   
 
 <!--这里是将自己的js让服务端编译一下，配置下服务端的php路径和自己的js即可，注意路径-->
 <?php
 $jsurl="testcase/gallery/wkeditor1.0.js";//注意路径
 $jsservice="../common/cajoled_service.php";//注意路径
+
 include("../common/foot.php");//引入foot
 ?>
