@@ -88,7 +88,7 @@
         <a class="nav-direction nav-next" href="#" hideFocus="true">&gt;</a>
         <div class="nav-wrapper">
             <a class="nav-play" href="#" hideFocus="true">start</a>
-            <span class="nav-btn">
+            <span id="NavBtns" class="nav-btn">
                 <a id="nav1" class="slider-slice-indicator" href="#" hideFocus="true"> 1 </a>
                 <a id="nav2" class="slider-slice-indicator" href="#" hideFocus="true"> 2 </a>
                 <a id="nav3" class="slider-slice-indicator" href="#" hideFocus="true"> 3 </a>
