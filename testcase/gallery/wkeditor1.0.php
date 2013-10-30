@@ -15,11 +15,15 @@
         padding: 0px;
     }
     #wankePost {
-        width: 60%;
+        width: 700px;
         margin: auto;
         background: #fff;
         padding: 10px;
         border-radius: 5px;
+        border: 1px solid green;
+        _left:20%;
+        position: relative;
+
     }
     .title{
         font-size: 24px;
@@ -80,6 +84,14 @@
     }
     .mini{
         font-size: 12px;
+    }
+    .div{
+        display: block!important;
+        text-align: center;
+    }
+    .J_TScriptedModule{
+        border: 1px solid green;
+
     }
 </style>
 <div class="J_TScriptedModule" data-componentid="uniqueSign">
