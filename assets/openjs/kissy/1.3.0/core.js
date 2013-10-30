@@ -652,7 +652,6 @@ KISSY.add(function (S, Calendar) {
                         url = cajaAFTB.rewriteURL(url, null, null, {XML_ATTR: "href"});
                     }
 
-
                     //这里处理下，目前只支持json或者jsonp的形式
                     if (!('json' === untamedcfg.dataType || 'jsonp' === untamedcfg.dataType)) {
                         untamedcfg.dataType = "jsonp";

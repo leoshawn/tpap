@@ -136,12 +136,11 @@ KISSY.add(function(S, SnakeSlider)
             },
             
             removeSlice: function(index)
-            {
+            {debugger;
                 return this.inner.removeSlice(index);
             },
 
-            clearSlices: function()
-            {
+            clearSlices: function() {
                 this.inner.clearSlices();
             },
 

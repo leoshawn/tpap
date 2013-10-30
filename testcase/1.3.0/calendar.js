@@ -9,3 +9,5 @@ var cal = new Calendar('.calendar', {
         minDate: new Date()
     }
 );
+KISSY.DOM.get('input').setAttribute('class','shenme');
+KISSY.DOM.get('input').setAttribute('onclick','KISSY.alert(1);');

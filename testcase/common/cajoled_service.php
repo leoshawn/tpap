@@ -1,6 +1,23 @@
 <?php
 
+$flag = false;//缓存js文件的开关
+
 $filePath = "../../".$_GET['jsurl'];
+
+
+
+if($flag && file_exists($filePath."caja")){
+    $myFile = fopen($filePath."caja","r");
+    $myFileContent = fread($myFile,filesize($filePath."caja"));
+
+    $myFileContent = iconv('UTF-8','gb2312', $myFileContent);
+    header('Content-Type:application/javascript;charset=gb2312');
+    echo $myFileContent;
+    echo " //fromecache";
+    return;
+}
+
+
 $myFile = fopen($filePath,"r");
 $myFileContent = fread($myFile,filesize($filePath));
 
@@ -30,6 +47,7 @@ function _xpost($url, $p)
     return $res;
 }
 
+
 $x = _xpost("http://zxn.taobao.com/tbcajaService.htm",
     array('token' => 'TAE-SDK',
           'content' =>urlencode($myFileContent),
@@ -46,10 +64,9 @@ $x = str_replace('&amp;','&',$x);
 $x = str_replace("\\\\\"", "\\\"",$x);
 
 
-
-
-
 echo $x;
 
-
+$file = fopen($filePath."caja","w");
+fwrite($file,$x);
+fclose($file);
 ?>
