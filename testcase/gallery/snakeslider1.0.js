@@ -385,21 +385,24 @@ Event.on(".nav-next", "click", function(e)
 // 切换到最后一个切片
 Event.on("#BtnSwitchTo", "click", function(e)
 {
-    var slices = slider.get("slices");
-    slider.switchTo(slider.getSliceByIndex(slices.length - 1));
+    var slices = slider.get("slices"), slice = slider.getSliceByIndex(slices.length - 1);
+    if (slice)
+    {
+        slider.switchTo(slice);
+    }
 });
+var sliceAppended;
 // 添加切片
 Event.on("#BtnAppendSlice", "click", function(e)
 {
-    var node = DOM.get(".nav-btn").appendChild(document.createElement("a"));
-    node.id = "nav4";
-    node.href = "#";
-    node.innerHTML = "4";
-    var slice = slider.appendSlice(
+    if (sliceAppended)  // 最多只添加一个切片，如果已经添加，则不再添加
+    {
+        return;
+    }
+    sliceAppended = slider.appendSlice(
     {
         id: "newSlice",
         sliceNode: "#slice4",  // 切片DOM节点
-        indicatorNode: "#nav4",  // 指示器DOM节点
         activeEffect:  // 切片激活效果
         [
             {
@@ -493,16 +496,12 @@ Event.on("#BtnAppendSlice", "click", function(e)
             }
         ]
     });
-    Event.on(node, slider.get("switchOnIndicator"), function(e)  // 绑定指示器节点事件
-    {
-        e.preventDefault();
-        slice.activate();  // 激活切片
-    });
 });
-// 删除添加的切片
+// 删除最后一个切片
 Event.on("#BtnRemoveSlice", "click", function(e)
 {
-    slider.removeSlice(slider.getSliceById("newSlice").get("index"));
+    var slices = slider.get("slices");
+    slider.removeSlice(slices.length - 1);
 });
 // 删除所有切片
 Event.on("#BtnClearSlices", "click", function(e)
