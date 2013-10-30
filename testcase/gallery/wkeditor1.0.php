@@ -95,6 +95,16 @@
         <div id="WKeditor"></div>
     </div>
 
+  <h2 class="top">
+      <div class="bb">WKeditor 1.0 <a class="link" href="http://gallery.kissyui.com/WKeditor/1.0/guide/index.html" target="_blank">API：http://gallery.kissyui.com/WKeditor/1.0/guide/index.html</a></div>
+
+  </h2>
+
+  <div id="wankePost">
+      <div class='title'>标题 <span class='mini'>（建议开启控制台查看console.log）</span></div>    
+      <div id="WKeditor"></div>
+  </div>
+
 </div>
 
 <!--模块初始化的包配置，都很熟悉了-->
@@ -104,7 +114,9 @@
         modules:"openjs/kissy/gallery/wkeditor/1.0/index"
     }
 
+
 </script>
+
 
 <!--这里是将自己的js让服务端编译一下，配置下服务端的php路径和自己的js即可，注意路径-->
 <?php
