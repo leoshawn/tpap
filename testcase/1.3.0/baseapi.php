@@ -11,6 +11,7 @@
         <a class='t3'>1111</a>
         <a class='t3'>1111</a>
     </div>
+    <canvas height="200" width="200"></canvas>
     <select class="orderlist" style="width:100%" data-attr="2222"></select>
     <input type="text" value="aaaaaaaaaa" name="dfdff"/>
     <div class="top-authbtn-container top-login-btn-container"></div>
@@ -34,6 +35,9 @@
             </select>
         </label>
     </div>
+    <form action="fdf.php">
+        <input type="text" value="34" name="kj"/>
+    </form>
     <div class="inner">1111</div>
     <div class="rep-father">
         <div class="rep-child1"></div>

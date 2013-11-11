@@ -9,7 +9,7 @@
         version = "r4000",
         HOST_PATH = location && (location.search || '').indexOf('caja-debug') !== -1 ?
             "http://assets.daily.taobao.net/apps/taesite/balcony/core/" :
-            "http://a.tbcdn.cn/apps/taesite/balcony/core/";
+            "http://tpap-1.shopmodule.aliapp.com/taesite/balcony/core/";
 
 
     /**

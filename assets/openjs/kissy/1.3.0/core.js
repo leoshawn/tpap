@@ -187,8 +187,8 @@ KISSY.add(function (S, Calendar) {
             //on和detach 手动转发给Event.on 和 Event.detach
             SafeNodeList.prototype.delegate = function (event, filter, handle, scope) {
                 var self = this;
-                var s = self.inner.inner.getDOMNodes();
-                Event_Delegate(s, event, handle, scope);
+                var s = self.inner.getDOMNodes();
+                Event_Delegate(s, event,filter, handle, scope);
                 return this;
             };
 
@@ -548,13 +548,6 @@ KISSY.add(function (S, Calendar) {
                         return tame(ret[0], true);
                     }),
 
-                    t:frameGroup.markFunction(function(){
-                        return {
-                            b:1,
-                            a:tame(document.getElementsByTagName('div')[0])
-                        }
-                    }),
-
                     // 提供选择器功能
                     query: frameGroup.markFunction(function (s, context) {
                         var ret = query(s, context);
@@ -648,7 +641,7 @@ KISSY.add(function (S, Calendar) {
 
                     var url = untamedcfg.url;
 
-                    if(url.charAt(0)!=="/"){
+                    if(url.charAt(0)!=="/" && url.indexOf('./') !== 0){
                         url = cajaAFTB.rewriteURL(url, null, null, {XML_ATTR: "href"});
                     }
 

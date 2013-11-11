@@ -2,6 +2,8 @@ var div = document.createElement("div");
 
 div.innerHTML = "<div data-id='fff'>df</div>"
 
+
+
 describe('对象基本方法和字符串测试', function () {
 
     it('对象的属性和函数测试', function () {
@@ -501,7 +503,7 @@ describe('基本的语言测试', function () {
     });
 
 })
-var url="http://onlineshow.taobaoapps.net/services/showdata.php";
+var url="http://www.taobao.com";
 console.log(KISSY.io);
 KISSY.io({
     type: "get",
@@ -513,5 +515,8 @@ KISSY.io({
     jsonpCallback:"docallback",
     success: function(getdata){
         KISSY.alert(getdata);
+    },
+    error:function(){
+        KISSY.alert('jsonp send,but result not ok')
     }
 });

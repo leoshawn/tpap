@@ -67,77 +67,24 @@ module.exports = function (grunt) {
                     ext: '-min.js'
                 }
             },
-            cssmin: {
-                compress: {
-                    expand: true,
-                    src: '**/*.css',
-                    ext: "-min.css",
-                    cwd: "build/stylesheets",
-                    dest: "build/stylesheets/"
 
-                }
-            },
             concat: {
                 foo: {
                     src: ['src/stylesheets/css/*.css'],
                     dest: ['build/stylesheets/combo.css']
                 }
-            },
-            native2ascii: {
-                dist: {
-                    expand: true,
-                    src: '*-min.js',
-                    cwd: "build/scripts",
-                    dest: "build/scripts/"
-                }
-            },
-            compass: {
-                dist: {
-                    options: {
-                        sassDir: "src/stylesheets/sass",
-                        cssDir: "src/stylesheets/css"
-                    }
-                }
-            },
-            watch: {
-                compass: {
-                    files: "src/stylesheets/sass",
-                    tasks: ['compass']
-                },
-                velocity: {
-                    files: "src/page/vm/**/**",
-                    tasks: ['velocity_js']
-                }
-            },
-            velocity_js: {
-                dist: {
-                    expand: true,
-                    src: ['*.vm', '!_*.vm'],
-                    ext: ".html",
-                    cwd: "src/page/vm",
-                    dest: "src/page/html"
-                }
-            },
-
-            tpsmate: {
-                build: {
-                    src: ['src/page/vm/**/*.vm']
-                },
-                options: {
-                    argu: " --inplace --force "
-                }
             }
+
+
         }
     );
 
     grunt.loadNpmTasks('grunt-kmc');
-    grunt.loadNpmTasks('grunt-native2ascii');
-    grunt.loadNpmTasks('grunt-tpsmate');
-    grunt.loadNpmTasks('grunt-velocity.js');
+
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-compass');
+
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
